@@ -38,7 +38,6 @@ public class WikiPhilosophy {
 			Map<Integer, String> map = new HashMap<Integer, String>();
 			int i = 0;
 			int leftParens = 0;
-			boolean italics = false;
 			
             map.put(i, url);
             i++;
@@ -81,7 +80,10 @@ public class WikiPhilosophy {
 		                        String tName = e.tagName();
 		                        if(tName.equals("A")||tName.equals("a"))
 		                        {
-		                        	if(!italics)
+		                        	Element parnt = e.parent();
+		                        	String tNameParnt = parnt.tagName();
+		                        	if(!(tName.equals("I")||tName.equals("i")
+		                        			||tName.equals("EM")||tName.equals("em")))
 		                        	{
 			                        	String absHref = e.attr("abs:href");
 			                        	if(url.equals(absHref)|| Character.isUpperCase(absHref.charAt(0))
@@ -114,18 +116,6 @@ public class WikiPhilosophy {
 			                        	}
 		                        	}
 		                        }
-		                        else
-		                        {
-		                        	if (tName.equals("I")||tName.equals("i")||
-		                        		tName.equals("EM")||tName.equals("em"))
-			                        {
-			                        	italics = true;
-			                        }
-		                        	else
-		                        	{
-		                        		italics = false;
-		                        	}
-	        					}
 	        				}
 	        			}
 	                }
